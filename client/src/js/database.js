@@ -14,7 +14,7 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) =>{
-    console.log('putDB');
+    console.log(content);
     //open DB connection
     const jateDB = await openDB('jate', 1);
     //create a new transaction
@@ -22,7 +22,7 @@ export const putDb = async (content) =>{
     //open desired object store
     const store = tx.objectStore('jate');
     //add content to database
-    const request = store.add(content);
+    const request = store.put({content});
     //get confirmation
     const result = await request;
     console.log('content saved to database', result)
@@ -43,7 +43,7 @@ export const getDb = async () => {
     const result = await request;
     console.log('result: ', result);
     //return it
-    return result;
+    return result.content;
 };
 
 initdb();
